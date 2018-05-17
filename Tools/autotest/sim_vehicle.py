@@ -523,7 +523,7 @@ def start_vehicle(binary, autotest, opts, stuff, loc):
     cmd = []
     if opts.valgrind:
         cmd_name += " (valgrind)"
-        cmd.append("valgrind")
+        cmd.append("valgrind --log-file=yu.log")
     if opts.callgrind:
         cmd_name += " (callgrind)"
         cmd.append("valgrind --tool=callgrind")

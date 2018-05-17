@@ -74,6 +74,11 @@
  */
 
 #include "Copter.h"
+#include <sys/stat.h>
+#include <unistd.h>
+
+using mission_state = AP_Mission::mission_state;
+using Mission_Flags = AP_Mission::Mission_Flags;
 
 #define SCHED_TASK(func, rate_hz, max_time_micros) SCHED_TASK_CLASS(Copter, &copter, func, rate_hz, max_time_micros)
 
@@ -164,6 +169,654 @@ const AP_Scheduler::Task Copter::scheduler_tasks[] = {
 };
 
 
+
+
+
+////////////////////////////////////////////////////
+//Copy serialize, deserialize fuctions here:
+void *_memoize[4096];
+int _memoizeMax;
+void __deserialize___anonstruct_rangefinder_state_3(struct __anonstruct_rangefinder_state_3 *ptr ,
+                                                    int fd ) ;
+void __serialize___anonstruct_gndeffect_state_9(struct __anonstruct_gndeffect_state_9 *ptr ,
+                                                int fd ) ;
+void __deserialize_scalarInt16(short *ptr , int fd ) ;
+void __deserialize___anonstruct_sensor_health_8(struct __anonstruct_sensor_health_8 *ptr ,
+                                                int fd ) ;
+void __serialize_control_mode_t(enum control_mode_t *ptr , int fd ) ;
+void __serialize___anonstruct_sensor_health_8(struct __anonstruct_sensor_health_8 *ptr ,
+                                              int fd ) ;
+void __deserialize_scalarFloat32(float *ptr , int fd ) ;
+//void __deserialize_array15_jump_tracking_struct(struct jump_tracking_struct (*ptr)[15] , int fd ) ;
+void __serialize_AP_Mission(struct AP_Mission *ptr , int fd ) ;
+void __deserialize_mission_state( mission_state *ptr , int fd ) ;
+void __serialize_scalarInt8(unsigned char *ptr , int fd ) ;
+void __serialize___anonstruct_rangefinder_state_3(struct __anonstruct_rangefinder_state_3 *ptr ,
+                                                  int fd ) ;
+void __deserialize___anonstruct_control_switch_state_6(struct __anonstruct_control_switch_state_6 *ptr ,
+                                                       int fd ) ;
+void __serialize_Copter(struct Copter *ptr , int fd ) ;
+void __deserialize_Mission_Flags(Mission_Flags *ptr , int fd ) ;
+void __deserialize_ptr_AP_Mission(AP_Mission **ptr , int fd ) ;
+void __deserialize_Mission_Command(struct Mission_Command *ptr , int fd ) ;
+void __serialize_mode_reason_t(enum mode_reason_t *ptr , int fd ) ;
+void __deserialize___anonstruct_gndeffect_state_9(struct __anonstruct_gndeffect_state_9 *ptr ,
+                                                  int fd ) ;
+void __deserialize_control_mode_t(enum control_mode_t *ptr , int fd ) ;
+void __deserialize_Copter(struct Copter *ptr , int fd ) ;
+void __serialize_ptr_AP_Mission(AP_Mission **ptr , int fd ) ;
+//void __serialize_array15_jump_tracking_struct(struct jump_tracking_struct (*ptr)[15] ,
+//                                              int fd ) ;
+//void __serialize_jump_tracking_struct(struct jump_tracking_struct *ptr , int fd ) ;
+void __deserialize_HomeState(enum HomeState *ptr , int fd ) ;
+void __serialize___anonstruct_failsafe_7(struct __anonstruct_failsafe_7 *ptr , int fd ) ;
+void __deserialize_scalarInt32(unsigned int *ptr , int fd ) ;
+void __serialize_scalarFloat32(float *ptr , int fd ) ;
+void __deserialize_mode_reason_t(enum mode_reason_t *ptr , int fd ) ;
+void __serialize_Mission_Command(struct Mission_Command *ptr , int fd ) ;
+void __serialize_scalarInt32(unsigned int *ptr , int fd ) ;
+void __deserialize___anonunion_ap_t_4(union __anonunion_ap_t_4 *ptr , int fd ) ;
+void __deserialize_scalarInt8(unsigned char *ptr , int fd ) ;
+void __serialize_Mission_Flags(Mission_Flags *ptr , int fd ) ;
+void __serialize_mission_state( mission_state *ptr , int fd ) ;
+void __deserialize_AP_Mission(struct AP_Mission *ptr , int fd ) ;
+void __serialize___anonunion_ap_t_4(union __anonunion_ap_t_4 *ptr , int fd ) ;
+//void __deserialize_jump_tracking_struct(struct jump_tracking_struct *ptr , int fd ) ;
+void __deserialize___anonstruct____missing_field_name_5(struct __anonstruct____missing_field_name_5 *ptr ,
+                                                        int fd ) ;
+void __serialize_scalarInt16(short *ptr , int fd ) ;
+void __serialize_HomeState(enum HomeState *ptr , int fd ) ;
+void __serialize___anonstruct_control_switch_state_6(struct __anonstruct_control_switch_state_6 *ptr ,
+                                                     int fd ) ;
+void __deserialize___anonstruct_failsafe_7(struct __anonstruct_failsafe_7 *ptr , int fd ) ;
+void __serialize___anonstruct____missing_field_name_5(struct __anonstruct____missing_field_name_5 *ptr ,
+                                                      int fd ) ;
+void __deserialize___anonstruct_rangefinder_state_3(struct __anonstruct_rangefinder_state_3 *ptr ,
+                                                    int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __serialize___anonstruct_gndeffect_state_9(struct __anonstruct_gndeffect_state_9 *ptr ,
+                                                int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __deserialize_scalarInt16(short *ptr , int fd ) 
+{ 
+
+
+  {
+  read(fd, ptr, 2);
+}
+}
+void __deserialize___anonstruct_sensor_health_8(struct __anonstruct_sensor_health_8 *ptr ,
+                                                int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __serialize_control_mode_t(enum control_mode_t *ptr , int fd ) 
+{ 
+
+
+  {
+  write(fd, ptr, 4);
+}
+}
+void __serialize___anonstruct_sensor_health_8(struct __anonstruct_sensor_health_8 *ptr ,
+                                              int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __deserialize_scalarFloat32(float *ptr , int fd ) 
+{ 
+
+
+  {
+  read(fd, ptr, 4);
+}
+}
+/*
+void __deserialize_array15_jump_tracking_struct(struct jump_tracking_struct (*ptr)[15] ,
+                                                int fd ) 
+{ 
+  int i3 ;
+
+  {
+  i3 = 0;
+  while (i3 < 15) {
+    {
+    __deserialize_jump_tracking_struct(& (*ptr)[i3], fd);
+    i3 ++;
+    }
+  }
+}
+}
+*/
+void __serialize_AP_Mission(struct AP_Mission *ptr , int fd ) 
+{ 
+
+
+  {
+  //__serialize_Mission_Command((struct Mission_Command *)(& ptr->__annonCompField1),
+  //                            fd);
+  __serialize_Mission_Flags(( Mission_Flags *)(& ptr->_flags), fd);
+  __serialize_scalarInt16((short *)(& ptr->_cmd_total), fd);
+  __serialize_scalarInt8((unsigned char *)(& ptr->_restart), fd);
+  __serialize_scalarInt16((short *)(& ptr->_options), fd);
+  __serialize_Mission_Command((struct Mission_Command *)(& ptr->_nav_cmd), fd);
+  __serialize_Mission_Command((struct Mission_Command *)(& ptr->_do_cmd), fd);
+  __serialize_scalarInt16((short *)(& ptr->_prev_nav_cmd_id), fd);
+  __serialize_scalarInt16((short *)(& ptr->_prev_nav_cmd_index), fd);
+  __serialize_scalarInt16((short *)(& ptr->_prev_nav_cmd_wp_index), fd);
+  //__serialize_array15_jump_tracking_struct((struct jump_tracking_struct (*)[15])(& ptr->_jump_tracking),
+    //                                       fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->_last_change_time_ms), fd);
+}
+}
+void __deserialize_mission_state(mission_state *ptr , int fd ) 
+{ 
+
+
+  {
+  read(fd, ptr, 4);
+}
+}
+void __serialize_scalarInt8(unsigned char *ptr , int fd ) 
+{ 
+
+
+  {
+  write(fd, ptr, 1);
+}
+}
+void __serialize___anonstruct_rangefinder_state_3(struct __anonstruct_rangefinder_state_3 *ptr ,
+                                                  int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __deserialize___anonstruct_control_switch_state_6(struct __anonstruct_control_switch_state_6 *ptr ,
+                                                       int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __serialize_Copter(struct Copter *ptr , int fd ) 
+{ 
+
+
+  {
+  __serialize_scalarInt8((unsigned char *)(& ptr->command_ack_counter), fd);
+  __serialize___anonstruct_rangefinder_state_3((struct __anonstruct_rangefinder_state_3 *)(& ptr->rangefinder_state),
+                                               fd);
+  __serialize_scalarFloat32((float *)(& ptr->ekfGndSpdLimit), fd);
+  __serialize_scalarFloat32((float *)(& ptr->ekfNavVelGainScaler), fd);
+  __serialize_scalarInt8((unsigned char *)(& ptr->ekf_primary_core), fd);
+  //__serialize___anonunion_ap_t_4((union __anonunion_ap_t_4 *)(& ptr->ap_t), fd);
+  __serialize_control_mode_t((enum control_mode_t *)(& ptr->control_mode), fd);
+  __serialize_mode_reason_t((enum mode_reason_t *)(& ptr->control_mode_reason), fd);
+  __serialize_control_mode_t((enum control_mode_t *)(& ptr->prev_control_mode), fd);
+  __serialize_mode_reason_t((enum mode_reason_t *)(& ptr->prev_control_mode_reason),
+                            fd);
+  __serialize___anonstruct_control_switch_state_6((struct __anonstruct_control_switch_state_6 *)(& ptr->control_switch_state),
+                                                  fd);
+  __serialize_scalarFloat32((float *)(& ptr->auto_takeoff_no_nav_alt_cm), fd);
+  __serialize_scalarInt8((unsigned char *)(& ptr->receiver_rssi), fd);
+  __serialize___anonstruct_failsafe_7((struct __anonstruct_failsafe_7 *)(& ptr->failsafe),
+                                      fd);
+  __serialize___anonstruct_sensor_health_8((struct __anonstruct_sensor_health_8 *)(& ptr->sensor_health),
+                                           fd);
+  __serialize_scalarFloat32((float *)(& ptr->scaleLongDown), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->_home_bearing), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->_home_distance), fd);
+  __serialize_scalarFloat32((float *)(& ptr->simple_cos_yaw), fd);
+  __serialize_scalarFloat32((float *)(& ptr->simple_sin_yaw), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->super_simple_last_bearing), fd);
+  __serialize_scalarFloat32((float *)(& ptr->super_simple_cos_yaw), fd);
+  __serialize_scalarFloat32((float *)(& ptr->super_simple_sin_yaw), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->initial_armed_bearing), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->control_sensors_present), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->control_sensors_enabled), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->control_sensors_health), fd);
+  __serialize_scalarInt16((short *)(& ptr->climb_rate), fd);
+  __serialize_scalarFloat32((float *)(& ptr->target_rangefinder_alt), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->baro_alt), fd);
+  __serialize_scalarFloat32((float *)(& ptr->baro_climbrate), fd);
+  __serialize_scalarInt8((unsigned char *)(& ptr->auto_yaw_mode), fd);
+  __serialize_scalarFloat32((float *)(& ptr->yaw_look_at_WP_bearing), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->yaw_look_at_heading), fd);
+  __serialize_scalarInt16((short *)(& ptr->yaw_look_at_heading_slew), fd);
+  __serialize_scalarFloat32((float *)(& ptr->yaw_look_ahead_bearing), fd);
+  __serialize_scalarFloat32((float *)(& ptr->auto_yaw_rate_cds), fd);
+  __serialize_scalarFloat32((float *)(& ptr->G_Dt), fd);
+  __serialize_scalarInt16((short *)(& ptr->pmTest1), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->fast_loopTimer), fd);
+  __serialize_scalarInt16((short *)(& ptr->mainLoop_count), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->arm_time_ms), fd);
+  __serialize_scalarInt8((unsigned char *)(& ptr->auto_trim_counter), fd);
+  __serialize_scalarInt8((unsigned char *)(& ptr->in_mavlink_delay), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->last_radio_update_ms), fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->esc_calibration_notify_update_ms),
+                          fd);
+  __serialize_scalarInt32((unsigned int *)(& ptr->visual_odom_last_update_ms), fd);
+  //__serialize_scalarInt16((short *)(& ptr->hover_roll_trim_scalar_slew), fd);
+  __serialize___anonstruct_gndeffect_state_9((struct __anonstruct_gndeffect_state_9 *)(& ptr->gndeffect_state),
+                                             fd);
+  __serialize_scalarInt8((unsigned char *)(& ptr->upgrading_frame_params), fd);
+  __serialize_ptr_AP_Mission((AP_Mission **)(& ptr->mission), fd);
+}
+}
+void __deserialize_Mission_Flags(Mission_Flags *ptr , int fd ) 
+{ 
+
+
+  {
+  __deserialize_mission_state((mission_state *)(& ptr->state), fd);
+  //__deserialize_scalarInt8((unsigned char *)(& ptr->nav_cmd_loaded), fd);
+  //__deserialize_scalarInt8((unsigned char *)(& ptr->do_cmd_loaded), fd);
+  //__deserialize_scalarInt8((unsigned char *)(& ptr->do_cmd_all_done), fd);
+}
+}
+void __deserialize_ptr_AP_Mission(AP_Mission **ptr , int fd ) 
+{ 
+  int i3 ;
+
+  {
+  read(fd, ptr, sizeof(*ptr));
+  if (*ptr != 0) {
+    {
+    i3 = 0;
+    while (i3 < _memoizeMax) {
+      {
+      if (_memoize[i3] == *ptr) {
+        {
+            ptr = _memoize[i3 + 1];
+
+        return;
+        }
+      }
+      i3 += 2;
+      }
+    }
+    _memoize[_memoizeMax] = *ptr;
+    *ptr = malloc(104);
+    _memoize[_memoizeMax + 1] = *ptr;
+    _memoizeMax += 2;
+    __deserialize_AP_Mission(*ptr, fd);
+    }
+  }
+}
+}
+void __deserialize_Mission_Command(struct Mission_Command *ptr , int fd ) 
+{ 
+
+
+  {
+  __deserialize_scalarInt16((short *)(& ptr->index), fd);
+  __deserialize_scalarInt16((short *)(& ptr->id), fd);
+  __deserialize_scalarInt16((short *)(& ptr->p1), fd);
+}
+}
+void __serialize_mode_reason_t(enum mode_reason_t *ptr , int fd ) 
+{ 
+
+
+  {
+  write(fd, ptr, 4);
+}
+}
+void __deserialize___anonstruct_gndeffect_state_9(struct __anonstruct_gndeffect_state_9 *ptr ,
+                                                  int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __deserialize_control_mode_t(enum control_mode_t *ptr , int fd ) 
+{ 
+
+
+  {
+  read(fd, ptr, 4);
+}
+}
+void __deserialize_Copter(struct Copter *ptr , int fd ) 
+{ 
+
+
+  {
+  __deserialize_scalarInt8((unsigned char *)(& ptr->command_ack_counter), fd);
+  __deserialize___anonstruct_rangefinder_state_3((struct __anonstruct_rangefinder_state_3 *)(& ptr->rangefinder_state),
+                                                 fd);
+  __deserialize_scalarFloat32((float *)(& ptr->ekfGndSpdLimit), fd);
+  __deserialize_scalarFloat32((float *)(& ptr->ekfNavVelGainScaler), fd);
+  __deserialize_scalarInt8((unsigned char *)(& ptr->ekf_primary_core), fd);
+  __deserialize___anonunion_ap_t_4((union __anonunion_ap_t_4 *)(& ptr->ap_t), fd);
+  __deserialize_control_mode_t((enum control_mode_t *)(& ptr->control_mode), fd);
+  __deserialize_mode_reason_t((enum mode_reason_t *)(& ptr->control_mode_reason),
+                              fd);
+  __deserialize_control_mode_t((enum control_mode_t *)(& ptr->prev_control_mode),
+                               fd);
+  __deserialize_mode_reason_t((enum mode_reason_t *)(& ptr->prev_control_mode_reason),
+                              fd);
+  __deserialize___anonstruct_control_switch_state_6((struct __anonstruct_control_switch_state_6 *)(& ptr->control_switch_state),
+                                                    fd);
+  __deserialize_scalarFloat32((float *)(& ptr->auto_takeoff_no_nav_alt_cm), fd);
+  __deserialize_scalarInt8((unsigned char *)(& ptr->receiver_rssi), fd);
+  __deserialize___anonstruct_failsafe_7((struct __anonstruct_failsafe_7 *)(& ptr->failsafe),
+                                        fd);
+  __deserialize___anonstruct_sensor_health_8((struct __anonstruct_sensor_health_8 *)(& ptr->sensor_health),
+                                             fd);
+  __deserialize_scalarFloat32((float *)(& ptr->scaleLongDown), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->_home_bearing), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->_home_distance), fd);
+  __deserialize_scalarFloat32((float *)(& ptr->simple_cos_yaw), fd);
+  __deserialize_scalarFloat32((float *)(& ptr->simple_sin_yaw), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->super_simple_last_bearing), fd);
+  __deserialize_scalarFloat32((float *)(& ptr->super_simple_cos_yaw), fd);
+  __deserialize_scalarFloat32((float *)(& ptr->super_simple_sin_yaw), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->initial_armed_bearing), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->control_sensors_present), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->control_sensors_enabled), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->control_sensors_health), fd);
+  __deserialize_scalarInt16((short *)(& ptr->climb_rate), fd);
+  __deserialize_scalarFloat32((float *)(& ptr->target_rangefinder_alt), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->baro_alt), fd);
+  __deserialize_scalarFloat32((float *)(& ptr->baro_climbrate), fd);
+  __deserialize_scalarInt8((unsigned char *)(& ptr->auto_yaw_mode), fd);
+  __deserialize_scalarFloat32((float *)(& ptr->yaw_look_at_WP_bearing), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->yaw_look_at_heading), fd);
+  __deserialize_scalarInt16((short *)(& ptr->yaw_look_at_heading_slew), fd);
+  __deserialize_scalarFloat32((float *)(& ptr->yaw_look_ahead_bearing), fd);
+  __deserialize_scalarFloat32((float *)(& ptr->auto_yaw_rate_cds), fd);
+  __deserialize_scalarFloat32((float *)(& ptr->G_Dt), fd);
+  __deserialize_scalarInt16((short *)(& ptr->pmTest1), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->fast_loopTimer), fd);
+  __deserialize_scalarInt16((short *)(& ptr->mainLoop_count), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->arm_time_ms), fd);
+  __deserialize_scalarInt8((unsigned char *)(& ptr->auto_trim_counter), fd);
+  __deserialize_scalarInt8((unsigned char *)(& ptr->in_mavlink_delay), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->last_radio_update_ms), fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->esc_calibration_notify_update_ms),
+                            fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->visual_odom_last_update_ms), fd);
+  __deserialize_scalarInt16((short *)(& ptr->hover_roll_trim_scalar_slew), fd);
+  __deserialize___anonstruct_gndeffect_state_9((struct __anonstruct_gndeffect_state_9 *)(& ptr->gndeffect_state),
+                                               fd);
+  __deserialize_scalarInt8((unsigned char *)(& ptr->upgrading_frame_params), fd);
+  __deserialize_ptr_AP_Mission((AP_Mission **)(& ptr->mission), fd);
+}
+}
+void __serialize_ptr_AP_Mission(AP_Mission **ptr , int fd ) 
+{ 
+  int i3 ;
+
+  {
+  write(fd, ptr, sizeof(*ptr));
+  if (*ptr != 0) {
+    {
+    i3 = 0;
+    while (i3 < _memoizeMax) {
+      {
+      if (_memoize[i3] == *ptr) {
+        return;
+      }
+      i3 ++;
+      }
+    }
+    _memoize[_memoizeMax] = *ptr;
+    _memoizeMax ++;
+    __serialize_AP_Mission(*ptr, fd);
+    }
+  }
+}
+}
+
+/*void __serialize_array15_jump_tracking_struct(struct jump_tracking_struct (*ptr)[15] ,
+                                              int fd ) 
+{ 
+  int i3 ;
+
+  {
+  i3 = 0;
+  while (i3 < 15) {
+    {
+    __serialize_jump_tracking_struct(& (*ptr)[i3], fd);
+    i3 ++;
+    }
+  }
+}
+}
+*/
+/*
+void __serialize_jump_tracking_struct(struct jump_tracking_struct *ptr , int fd ) 
+{ 
+
+
+  {
+  __serialize_scalarInt16((short *)(& ptr->index), fd);
+  __serialize_scalarInt16((short *)(& ptr->num_times_run), fd);
+}
+}
+*/
+void __deserialize_HomeState(enum HomeState *ptr , int fd ) 
+{ 
+
+
+  {
+  read(fd, ptr, 4);
+}
+}
+void __serialize___anonstruct_failsafe_7(struct __anonstruct_failsafe_7 *ptr , int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __deserialize_scalarInt32(unsigned int *ptr , int fd ) 
+{ 
+
+
+  {
+  read(fd, ptr, 4);
+}
+}
+void __serialize_scalarFloat32(float *ptr , int fd ) 
+{ 
+
+
+  {
+  write(fd, ptr, 4);
+}
+}
+void __deserialize_mode_reason_t(enum mode_reason_t *ptr , int fd ) 
+{ 
+
+
+  {
+  read(fd, ptr, 4);
+}
+}
+void __serialize_Mission_Command(struct Mission_Command *ptr , int fd ) 
+{ 
+
+
+  {
+  __serialize_scalarInt16((short *)(& ptr->index), fd);
+  __serialize_scalarInt16((short *)(& ptr->id), fd);
+  __serialize_scalarInt16((short *)(& ptr->p1), fd);
+}
+}
+void __serialize_scalarInt32(unsigned int *ptr , int fd ) 
+{ 
+
+
+  {
+  write(fd, ptr, 4);
+}
+}
+void __deserialize___anonunion_ap_t_4(union __anonunion_ap_t_4 *ptr , int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __deserialize_scalarInt8(unsigned char *ptr , int fd ) 
+{ 
+
+
+  {
+  read(fd, ptr, 1);
+}
+}
+void __serialize_Mission_Flags(Mission_Flags *ptr , int fd ) 
+{ 
+
+
+  {
+  __serialize_mission_state((enum mission_state *)(& ptr->state), fd);
+  __serialize_scalarInt8((unsigned char *)(& ptr->nav_cmd_loaded), fd);
+  __serialize_scalarInt8((unsigned char *)(& ptr->do_cmd_loaded), fd);
+  __serialize_scalarInt8((unsigned char *)(& ptr->do_cmd_all_done), fd);
+}
+}
+void __serialize_mission_state(enum mission_state *ptr , int fd ) 
+{ 
+
+
+  {
+  write(fd, ptr, 4);
+}
+}
+void __deserialize_AP_Mission(struct AP_Mission *ptr , int fd ) 
+{ 
+
+
+  {
+  //__deserialize_Mission_Command((struct Mission_Command *)(& ptr->__annonCompField1),
+  //                              fd);
+  __deserialize_Mission_Flags(( Mission_Flags *)(& ptr->_flags), fd);
+  __deserialize_scalarInt16((short *)(& ptr->_cmd_total), fd);
+  __deserialize_scalarInt8((unsigned char *)(& ptr->_restart), fd);
+  __deserialize_scalarInt16((short *)(& ptr->_options), fd);
+  __deserialize_Mission_Command((struct Mission_Command *)(& ptr->_nav_cmd), fd);
+  __deserialize_Mission_Command((struct Mission_Command *)(& ptr->_do_cmd), fd);
+  __deserialize_scalarInt16((short *)(& ptr->_prev_nav_cmd_id), fd);
+  __deserialize_scalarInt16((short *)(& ptr->_prev_nav_cmd_index), fd);
+  __deserialize_scalarInt16((short *)(& ptr->_prev_nav_cmd_wp_index), fd);
+  //__deserialize_array15_jump_tracking_struct((struct jump_tracking_struct (*)[15])(& ptr->_jump_tracking),
+  //                                           fd);
+  __deserialize_scalarInt32((unsigned int *)(& ptr->_last_change_time_ms), fd);
+}
+}
+void __serialize___anonunion_ap_t_4(union __anonunion_ap_t_4 *ptr , int fd ) 
+{ 
+
+
+  {
+
+}
+}
+
+/*
+void __deserialize_jump_tracking_struct(struct jump_tracking_struct *ptr , int fd ) 
+{ 
+
+
+  {
+  __deserialize_scalarInt16((short *)(& ptr->index), fd);
+  __deserialize_scalarInt16((short *)(& ptr->num_times_run), fd);
+}
+}
+*/
+void __deserialize___anonstruct____missing_field_name_5(struct __anonstruct____missing_field_name_5 *ptr ,
+                                                        int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __serialize_scalarInt16(short *ptr , int fd ) 
+{ 
+
+
+  {
+  write(fd, ptr, 2);
+}
+}
+void __serialize_HomeState(enum HomeState *ptr , int fd ) 
+{ 
+
+
+  {
+  write(fd, ptr, 4);
+}
+}
+void __serialize___anonstruct_control_switch_state_6(struct __anonstruct_control_switch_state_6 *ptr ,
+                                                     int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __deserialize___anonstruct_failsafe_7(struct __anonstruct_failsafe_7 *ptr , int fd ) 
+{ 
+
+
+  {
+
+}
+}
+void __serialize___anonstruct____missing_field_name_5(struct __anonstruct____missing_field_name_5 *ptr ,
+                                                      int fd ) 
+{ 
+
+
+  {
+
+}
+}
+
+
+//End copying serialize, deserialzie functions
+///////////////////////////////////////////////////
+
+
+
+
+
 void Copter::setup()
 {
     // Load the default values of variables listed in var_info[]s
@@ -207,6 +860,12 @@ void Copter::stats_update(void)
     g2.stats.update();
 }
 
+
+    struct Copter *copter_ptr;
+    int fd1;
+    int fd2;
+   int fd3;
+    int fd4;
 void Copter::loop()
 {
     // wait for an INS sample
@@ -239,8 +898,148 @@ void Copter::loop()
     const uint32_t loop_us = scheduler.get_loop_period_us();
     const uint32_t time_available = (timer + loop_us) - micros();
     scheduler.run(time_available > loop_us ? 0u : time_available);
-}
 
+    
+    // Serialize/deserialize data from the Copter struct/class
+    //struct Copter *copter_ptr;
+    //int fd;
+
+    {
+
+        //check the size of AP_ParamT
+        AP_Float test_float;
+        AP_Int8 test_int8;
+        AP_Int16 test_int16;
+        AP_Int32 test_int32;
+
+        printf("size of AP_Float: %d\n", sizeof(test_float));
+        printf("size of AP_Int8: %d\n", sizeof(test_int8));
+        printf("size of AP_Int16: %d\n", sizeof(test_int16));
+        printf("size of AP_Int32 %d\n", sizeof(test_int32));
+        //static int counter = 0;
+        //if (counter++ % 100 == 0) {
+            //printf("got here %d\n",counter) ;
+            
+            // Allow serialize/deserilaize from outside control
+            //bool serialize = false;
+            //if (serialize)
+
+            const char* sfile = "/home/yhhy/repos/ardupilot/ArduCopter/s.ctrl";
+            struct stat sbuf;
+            const char* dfile = "/home/yhhy/repos/ardupilot/ArduCopter/d.ctrl";
+            struct stat dbuf;
+
+            // Serialize data of file "s.ctrl" exists
+            if (stat(sfile,&sbuf) == 0)
+            {
+                printf("s.ctrl exists, Serializing now\n");
+                copter_ptr = this;
+                
+                //command_ack_counter=77;
+                //char wesbuf[1024];
+                //sprintf(wesbuf, "size = %d, before _serialize_Copter(%p, %d)", sizeof(*copter_ptr),copter_ptr, fd); 
+               
+            //       printf("Serializing check_flag = %d\n", this->check_flag);
+
+                /*
+                   this-> upgrading_frame_params = true;
+                   this-> esc_calibration_notify_update_ms = 2147483647;
+                   this-> visual_odom_last_update_ms = 2147483647;
+                   this-> hover_roll_trim_scalar_slew = 65536;
+                   printf("Byte4-last_radio_update_ms: %x\n",this->last_radio_update_ms);
+                   printf("Byte4-arm_time_ms: %x\n",this->arm_time_ms);
+                   printf("Byte2-mainLoop__count: %x\n",this->mainLoop_count);
+                   printf("Byte4-fast_loopTimer: %x\n",this->fast_loopTimer);
+                   printf("Byte2-pmTest1: %x\n",this->pmTest1);
+                   printf("Byte1-upgrading_frame_params: %x\n",this->upgrading_frame_params);
+
+                 */
+                   fd1 = open("./serialized.data",0102, 0770);
+                   __serialize_Copter(copter_ptr, fd1);
+                   close(fd1);
+
+                  // delete s.ctrl, so it only serialize once
+                  printf("Status of s.ctrl: %d\n", stat(sfile,&sbuf));
+                  int res =  unlink(sfile);
+                  printf("Return code of unlink: %d\n", res);
+                  printf("Status of s.ctrl: %d\n", stat(sfile,&sbuf));
+                  
+                  
+
+                   //fd = open("./serialized.data",O_RDWR);
+                  // printf("return of open(): %d\n", fd);
+                  // write(fd, wesbuf, strlen(wesbuf)); 
+                  // if (copter_ptr == 0) {
+                  //     write(fd, "null", 4); 
+                  // } 
+/*                           "try if anything can be written in to the file\n",47); */
+                   //printf("bool_enabled1 = %d\n", this->rangefinder_state.enabled);
+                   
+/* check if seralization works fine
+                   unsigned int ui1;
+                   unsigned int ui2;
+
+                   memcpy(&ui1, (void *)&(this->ekfGndSpdLimit), sizeof(ui1));
+                   memcpy(&ui2, (void *)&(this->ekfNavVelGainScaler), sizeof(ui2));
+                   printf("ekfGndSodLimit1 = %x\n", ui1);
+                   printf("ekfNavVelGainScaler1 = %x\n", ui2);
+                   printf("command_ack_counter_1 = %x\n", this->command_ack_counter);
+                   __serialize_Copter(copter_ptr, fd1);
+                //sprintf(wesbuf, "after _serialize_Copter(%p, %d)", copter_ptr, fd); 
+                  // write(fd, wesbuf, strlen(wesbuf)); 
+                   close(fd1);
+           
+
+                fd3= open("./serialized1.data", 0102, 0770);
+                __deserialize_Copter(copter_ptr, fd3);
+                close(fd3);
+
+                   fd2 = open("./serialized2.data",0102, 0770);
+                   //printf("bool_enabled2 = %d\n", this->rangefinder_state.enabled);
+                   unsigned int ui3;
+                   unsigned int ui4;
+
+                   memcpy(&ui3, (void *)&(this->ekfGndSpdLimit), sizeof(ui3));
+                   memcpy(&ui4, (void *)&(this->ekfNavVelGainScaler), sizeof(ui4));
+                   printf("ekfGndSodLimit1 = %x\n", ui3);
+                   printf("ekfNavVelGainScaler1 = %x\n", ui4);
+     
+                   printf("command_ack_counter_2 = %x\n", this->command_ack_counter);
+
+                   __serialize_Copter(copter_ptr, fd2);
+                   close(fd2);
+                   exit(0); */
+            } 
+           
+
+            // Deserialize if file "d.ctrl" exists
+            if (stat(dfile, &dbuf)==0){
+
+                
+                   fd3 = open("./before_d.data",0102, 0770);
+                   __serialize_Copter(copter_ptr, fd3);
+                   close(fd3);
+
+                printf("d.ctrl exists, Deserializing now\n");
+                fd2= open("./serialized.data", 0102, 0770);
+                __deserialize_Copter(copter_ptr, fd2);
+                close(fd2);
+
+                
+                   fd4 = open("./after_d.data",0102, 0770);
+                   __serialize_Copter(copter_ptr, fd4);
+                   close(fd4);
+
+                  printf("Status of d.ctrl: %d\n", stat(dfile,&dbuf));
+                  int res =  unlink(dfile);
+                  printf("Return code of unlink: %d\n", res);
+                  printf("Status of d.ctrl: %d\n", stat(dfile,&dbuf));
+            }
+        //}
+
+
+    }
+}
 
 // Main loop - 400hz
 void Copter::fast_loop()

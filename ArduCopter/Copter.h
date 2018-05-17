@@ -137,6 +137,7 @@
 #include <SITL/SITL.h>
 #endif
 
+#include <stdlib.h>
 
 class Copter : public AP_HAL::HAL::Callbacks {
 public:
@@ -156,8 +157,8 @@ public:
     // HAL::Callbacks implementation.
     void setup() override;
     void loop() override;
-
-private:
+//Yu: change private to public
+//private:
     static const AP_FWVersion fwver;
 
     // key aircraft parameters passed to multiple libraries
@@ -175,7 +176,7 @@ private:
 
     // used to detect MAVLink acks from GCS to stop compassmot
     uint8_t command_ack_counter;
-
+   // uint8_t check_flag = rand()%100;
     // primary input control channels
     RC_Channel *channel_roll;
     RC_Channel *channel_pitch;
@@ -935,6 +936,7 @@ private:
     void userhook_MediumLoop();
     void userhook_SlowLoop();
     void userhook_SuperSlowLoop();
+
 
 #include "mode.h"
 

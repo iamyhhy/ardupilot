@@ -463,7 +463,7 @@ public:
     // user settable parameters
     static const struct AP_Param::GroupInfo var_info[];
 
-private:
+//private:
     static StorageAccess _storage;
 
     struct Mission_Flags {
