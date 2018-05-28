@@ -540,7 +540,7 @@ MAV_MISSION_RESULT AP_Mission::mavlink_int_to_mission_cmd(const mavlink_mission_
     // command's position in mission list and mavlink id
     cmd.index = packet.seq;
     cmd.id = packet.command;
-    cmd.content.location.options = 0;
+    cmd.content.location.compField1.options = 0;
 
     // command specific conversions from mavlink packet to mission command
     switch (cmd.id) {
@@ -577,7 +577,7 @@ MAV_MISSION_RESULT AP_Mission::mavlink_int_to_mission_cmd(const mavlink_mission_
     case MAV_CMD_NAV_LOITER_UNLIM:                      // MAV ID: 17
         copy_location = true;
         cmd.p1 = fabsf(packet.param3);                  // store radius as 16bit since no other params are competing for space
-        cmd.content.location.flags.loiter_ccw = (packet.param3 < 0);    // -1 = counter clockwise, +1 = clockwise
+        cmd.content.location.compField1.flags.loiter_ccw = (packet.param3 < 0);    // -1 = counter clockwise, +1 = clockwise
         break;
 
     case MAV_CMD_NAV_LOITER_TURNS:                      // MAV ID: 18
@@ -586,16 +586,16 @@ MAV_MISSION_RESULT AP_Mission::mavlink_int_to_mission_cmd(const mavlink_mission_
         uint16_t num_turns = packet.param1;              // param 1 is number of times to circle is held in low p1
         uint16_t radius_m = fabsf(packet.param3);        // param 3 is radius in meters is held in high p1
         cmd.p1 = (radius_m<<8) | (num_turns & 0x00FF);   // store radius in high byte of p1, num turns in low byte of p1
-        cmd.content.location.flags.loiter_ccw = (packet.param3 < 0);
-        cmd.content.location.flags.loiter_xtrack = (packet.param4 > 0); // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
+        cmd.content.location.compField1.flags.loiter_ccw = (packet.param3 < 0);
+        cmd.content.location.compField1.flags.loiter_xtrack = (packet.param4 > 0); // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
     }
         break;
 
     case MAV_CMD_NAV_LOITER_TIME:                       // MAV ID: 19
         copy_location = true;
         cmd.p1 = packet.param1;                         // loiter time in seconds uses all 16 bits, 8bit seconds is too small. No room for radius.
-        cmd.content.location.flags.loiter_ccw = (packet.param3 < 0);
-        cmd.content.location.flags.loiter_xtrack = (packet.param4 > 0); // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
+        cmd.content.location.compField1.flags.loiter_ccw = (packet.param3 < 0);
+        cmd.content.location.compField1.flags.loiter_xtrack = (packet.param4 > 0); // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
         break;
 
     case MAV_CMD_NAV_RETURN_TO_LAUNCH:                  // MAV ID: 20
@@ -604,7 +604,7 @@ MAV_MISSION_RESULT AP_Mission::mavlink_int_to_mission_cmd(const mavlink_mission_
     case MAV_CMD_NAV_LAND:                              // MAV ID: 21
         copy_location = true;
         cmd.p1 = packet.param1;                         // abort target altitude(m)  (plane only)
-        cmd.content.location.flags.loiter_ccw = is_negative(packet.param4); // yaw direction, (plane deepstall only)
+        cmd.content.location.compField1.flags.loiter_ccw = is_negative(packet.param4); // yaw direction, (plane deepstall only)
         break;
 
     case MAV_CMD_NAV_TAKEOFF:                           // MAV ID: 22
@@ -623,8 +623,8 @@ MAV_MISSION_RESULT AP_Mission::mavlink_int_to_mission_cmd(const mavlink_mission_
     case MAV_CMD_NAV_LOITER_TO_ALT:                     // MAV ID: 31
         copy_location = true;
         cmd.p1 = fabsf(packet.param2);                  // param2 is radius in meters
-        cmd.content.location.flags.loiter_ccw = (packet.param2 < 0);
-        cmd.content.location.flags.loiter_xtrack = (packet.param4 > 0); // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
+        cmd.content.location.compField1.flags.loiter_ccw = (packet.param2 < 0);
+        cmd.content.location.compField1.flags.loiter_xtrack = (packet.param4 > 0); // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
         break;
 
     case MAV_CMD_NAV_SPLINE_WAYPOINT:                   // MAV ID: 82
@@ -845,20 +845,20 @@ MAV_MISSION_RESULT AP_Mission::mavlink_int_to_mission_cmd(const mavlink_mission_
 
         case MAV_FRAME_MISSION:
         case MAV_FRAME_GLOBAL:
-            cmd.content.location.flags.relative_alt = 0;
+            cmd.content.location.compField1.flags.relative_alt = 0;
             break;
 
         case MAV_FRAME_GLOBAL_RELATIVE_ALT:
-            cmd.content.location.flags.relative_alt = 1;
+            cmd.content.location.compField1.flags.relative_alt = 1;
             break;
 
 #if AP_TERRAIN_AVAILABLE
         case MAV_FRAME_GLOBAL_TERRAIN_ALT:
             // we mark it as a relative altitude, as it doesn't have
             // home alt added
-            cmd.content.location.flags.relative_alt = 1;
+            cmd.content.location.compField1.flags.relative_alt = 1;
             // mark altitude as above terrain, not above home
-            cmd.content.location.flags.terrain_alt = 1;
+            cmd.content.location.compField1.flags.terrain_alt = 1;
             break;
 #endif
 
@@ -1026,7 +1026,7 @@ bool AP_Mission::mission_cmd_to_mavlink_int(const AP_Mission::Mission_Command& c
     case MAV_CMD_NAV_LOITER_UNLIM:                      // MAV ID: 17
         copy_location = true;
         packet.param3 = (float)cmd.p1;
-        if (cmd.content.location.flags.loiter_ccw) {
+        if (cmd.content.location.compField1.flags.loiter_ccw) {
             packet.param3 *= -1;
         }
         break;
@@ -1035,21 +1035,21 @@ bool AP_Mission::mission_cmd_to_mavlink_int(const AP_Mission::Mission_Command& c
         copy_location = true;
         packet.param1 = LOWBYTE(cmd.p1);                // number of times to circle is held in low byte of p1
         packet.param3 = HIGHBYTE(cmd.p1);               // radius is held in high byte of p1
-        if (cmd.content.location.flags.loiter_ccw) {
+        if (cmd.content.location.compField1.flags.loiter_ccw) {
             packet.param3 = -packet.param3;
         }
-        packet.param4 = cmd.content.location.flags.loiter_xtrack; // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
+        packet.param4 = cmd.content.location.compField1.flags.loiter_xtrack; // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
         break;
 
     case MAV_CMD_NAV_LOITER_TIME:                       // MAV ID: 19
         copy_location = true;
         packet.param1 = cmd.p1;                         // loiter time in seconds
-        if (cmd.content.location.flags.loiter_ccw) {
+        if (cmd.content.location.compField1.flags.loiter_ccw) {
             packet.param3 = -1;
         } else {
             packet.param3 = 1;
         }
-        packet.param4 = cmd.content.location.flags.loiter_xtrack; // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
+        packet.param4 = cmd.content.location.compField1.flags.loiter_xtrack; // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
         break;
 
     case MAV_CMD_NAV_RETURN_TO_LAUNCH:                  // MAV ID: 20
@@ -1058,7 +1058,7 @@ bool AP_Mission::mission_cmd_to_mavlink_int(const AP_Mission::Mission_Command& c
     case MAV_CMD_NAV_LAND:                              // MAV ID: 21
         copy_location = true;
         packet.param1 = cmd.p1;                        // abort target altitude(m)  (plane only)
-        packet.param4 = cmd.content.location.flags.loiter_ccw ? -1 : 1; // yaw direction, (plane deepstall only)
+        packet.param4 = cmd.content.location.compField1.flags.loiter_ccw ? -1 : 1; // yaw direction, (plane deepstall only)
         break;
 
     case MAV_CMD_NAV_TAKEOFF:                           // MAV ID: 22
@@ -1077,10 +1077,10 @@ bool AP_Mission::mission_cmd_to_mavlink_int(const AP_Mission::Mission_Command& c
     case MAV_CMD_NAV_LOITER_TO_ALT:                     // MAV ID: 31
         copy_location = true;
         packet.param2 = cmd.p1;                        // loiter radius(m)
-        if (cmd.content.location.flags.loiter_ccw) {
+        if (cmd.content.location.compField1.flags.loiter_ccw) {
             packet.param2 = -packet.param2;
         }
-        packet.param4 = cmd.content.location.flags.loiter_xtrack; // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
+        packet.param4 = cmd.content.location.compField1.flags.loiter_xtrack; // 0 to xtrack from center of waypoint, 1 to xtrack from tangent exit location
         break;
 
     case MAV_CMD_NAV_SPLINE_WAYPOINT:                   // MAV ID: 82
@@ -1281,15 +1281,15 @@ bool AP_Mission::mission_cmd_to_mavlink_int(const AP_Mission::Mission_Command& c
     }
     if (copy_location || copy_alt) {
         packet.z = cmd.content.location.alt / 100.0f;   // cmd alt in cm to m
-        if (cmd.content.location.flags.relative_alt) {
+        if (cmd.content.location.compField1.flags.relative_alt) {
             packet.frame = MAV_FRAME_GLOBAL_RELATIVE_ALT;
         }else{
             packet.frame = MAV_FRAME_GLOBAL;
         }
 #if AP_TERRAIN_AVAILABLE
-        if (cmd.content.location.flags.terrain_alt) {
+        if (cmd.content.location.compField1.flags.terrain_alt) {
             // this is a above-terrain altitude
-            if (!cmd.content.location.flags.relative_alt) {
+            if (!cmd.content.location.compField1.flags.relative_alt) {
                 // refuse to return non-relative terrain mission
                 // items. Internally we do have these, and they
                 // have home.alt added, but we should never be
@@ -1303,7 +1303,7 @@ bool AP_Mission::mission_cmd_to_mavlink_int(const AP_Mission::Mission_Command& c
         }
 #else
         // don't ever return terrain mission items if no terrain support
-        if (cmd.content.location.flags.terrain_alt) {
+        if (cmd.content.location.compField1.flags.terrain_alt) {
             return false;
         }
 #endif

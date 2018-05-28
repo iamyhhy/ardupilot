@@ -862,7 +862,7 @@ bool GCS_MAVLINK_Sub::handle_guided_request(AP_Mission::Mission_Command &cmd)
 void GCS_MAVLINK_Sub::handle_change_alt_request(AP_Mission::Mission_Command &cmd)
 {
     // add home alt if needed
-    if (cmd.content.location.flags.relative_alt) {
+    if (cmd.content.location.compField1.flags.relative_alt) {
         cmd.content.location.alt += sub.ahrs.get_home().alt;
     }
 
@@ -1465,19 +1465,19 @@ void GCS_MAVLINK_Sub::handleMessage(mavlink_message_t* msg)
             switch (packet.coordinate_frame) {
             case MAV_FRAME_GLOBAL_RELATIVE_ALT: // solo shot manager incorrectly sends RELATIVE_ALT instead of RELATIVE_ALT_INT
             case MAV_FRAME_GLOBAL_RELATIVE_ALT_INT:
-                loc.flags.relative_alt = true;
-                loc.flags.terrain_alt = false;
+                loc.compField1.flags.relative_alt = true;
+                loc.compField1.flags.terrain_alt = false;
                 break;
             case MAV_FRAME_GLOBAL_TERRAIN_ALT:
             case MAV_FRAME_GLOBAL_TERRAIN_ALT_INT:
-                loc.flags.relative_alt = true;
-                loc.flags.terrain_alt = true;
+                loc.compField1.flags.relative_alt = true;
+                loc.compField1.flags.terrain_alt = true;
                 break;
             case MAV_FRAME_GLOBAL:
             case MAV_FRAME_GLOBAL_INT:
             default:
-                loc.flags.relative_alt = false;
-                loc.flags.terrain_alt = false;
+                loc.compField1.flags.relative_alt = false;
+                loc.compField1.flags.terrain_alt = false;
                 break;
             }
             pos_neu_cm = sub.pv_location_to_vector(loc);

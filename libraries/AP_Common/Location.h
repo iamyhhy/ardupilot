@@ -68,9 +68,11 @@ public:
     // extrapolate latitude/longitude given distances (in meters) north and east
     void offset(float ofs_north, float ofs_east);
 
-    bool is_zero(void) { return (lat == 0 && lng == 0 && alt == 0 && options == 0); }
+    //Yu: I commented out is_zero
+    bool is_zero(void) { return (lat == 0 && lng == 0 && alt == 0 && compField1.options == 0); }
 
-    void zero(void) { lat = lng = alt = 0; options = 0; }
+    //Yu: I commented out zero()
+    void zero(void) { lat = lng = alt = 0; compField1.options = 0; }
 
 private:
     static const AP_AHRS_NavEKF *_ahrs;

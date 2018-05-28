@@ -407,7 +407,7 @@ void Plane::geofence_check(bool altitude_check_only)
                 // min and max
                 guided_WP_loc.alt = home.alt + 100.0f*(g.fence_minalt + g.fence_maxalt)/2;
             }
-            guided_WP_loc.options = 0;
+            guided_WP_loc.compField1.options = 0;
             guided_WP_loc.lat = geofence_state->boundary[0].x;
             guided_WP_loc.lng = geofence_state->boundary[0].y;
         }

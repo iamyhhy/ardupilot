@@ -141,7 +141,7 @@ bool Tracker::get_home_eeprom(struct Location &loc)
     }
 
     // read WP position
-    loc.options = wp_storage.read_byte(0);
+    loc.compField1.options = wp_storage.read_byte(0);
     loc.alt = wp_storage.read_uint32(1);
     loc.lat = wp_storage.read_uint32(5);
     loc.lng = wp_storage.read_uint32(9);
@@ -151,7 +151,7 @@ bool Tracker::get_home_eeprom(struct Location &loc)
 
 void Tracker::set_home_eeprom(struct Location temp)
 {
-    wp_storage.write_byte(0, temp.options);
+    wp_storage.write_byte(0, temp.compField1.options);
     wp_storage.write_uint32(1, temp.alt);
     wp_storage.write_uint32(5, temp.lat);
     wp_storage.write_uint32(9, temp.lng);

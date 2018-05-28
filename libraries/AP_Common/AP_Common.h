@@ -130,12 +130,16 @@ struct PACKED Location_Option_Flags {
     uint8_t loiter_xtrack : 1;          // 0 to crosstrack from center of waypoint, 1 to crosstrack from tangent exit location
 };
 
-struct PACKED Location {
-    union {
+// Yu: I moved union out Location.
+ union CompField1{
         Location_Option_Flags flags;                    ///< options bitmask (1<<0 = relative altitude)
         uint8_t options;                                /// allows writing all flags to eeprom as one byte
     };
-    // by making alt 24 bit we can make p1 in a command 16 bit,
+typedef union CompField1 CompField1;
+
+struct PACKED Location {
+    CompField1 compField1;
+       // by making alt 24 bit we can make p1 in a command 16 bit,
     // allowing an accurate angle in centi-degrees. This keeps the
     // storage cost per mission item at 15 bytes, and allows mission
     // altitudes of up to +/- 83km

@@ -957,8 +957,8 @@ bool AP_AHRS_DCM::get_position(struct Location &loc) const
     loc.lat = _last_lat;
     loc.lng = _last_lng;
     loc.alt = _baro.get_altitude() * 100 + _home.alt;
-    loc.flags.relative_alt = 0;
-    loc.flags.terrain_alt = 0;
+    loc.compField1.flags.relative_alt = 0;
+    loc.compField1.flags.terrain_alt = 0;
     location_offset(loc, _position_offset_north, _position_offset_east);
     const AP_GPS &_gps = AP::gps();
     if (_flags.fly_forward && _have_position) {
@@ -1004,7 +1004,7 @@ bool AP_AHRS_DCM::airspeed_estimate(float *airspeed_ret) const
 void AP_AHRS_DCM::set_home(const Location &loc)
 {
     _home = loc;
-    _home.options = 0;
+    _home.compField1.options = 0;
 }
 
 //  a relative ground position to home in meters, Down

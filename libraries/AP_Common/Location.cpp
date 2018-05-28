@@ -23,7 +23,7 @@ Location_Class::Location_Class(int32_t latitude, int32_t longitude, int32_t alt_
 {
     lat = latitude;
     lng = longitude;
-    options = 0;
+    compField1.options = 0;
     set_alt_cm(alt_in_cm, frame);
 }
 
@@ -32,7 +32,7 @@ Location_Class::Location_Class(const Location& loc)
     lat = loc.lat;
     lng = loc.lng;
     alt = loc.alt;
-    options = loc.options;
+    compField1.options = loc.compField1.options;
 }
 
 Location_Class::Location_Class(const Vector3f &ekf_offset_neu)
@@ -56,31 +56,31 @@ Location_Class& Location_Class::operator=(const struct Location &loc)
     lat = loc.lat;
     lng = loc.lng;
     alt = loc.alt;
-    options = loc.options;
+    compField1.options = loc.compField1.options;
     return *this;
 }
 
 void Location_Class::set_alt_cm(int32_t alt_cm, ALT_FRAME frame)
 {
     alt = alt_cm;
-    flags.relative_alt = false;
-    flags.terrain_alt = false;
-    flags.origin_alt = false;
+    compField1.flags.relative_alt = false;
+    compField1.flags.terrain_alt = false;
+    compField1.flags.origin_alt = false;
     switch (frame) {
         case ALT_FRAME_ABSOLUTE:
             // do nothing
             break;
         case ALT_FRAME_ABOVE_HOME:
-            flags.relative_alt = true;
+            compField1.flags.relative_alt = true;
             break;
         case ALT_FRAME_ABOVE_ORIGIN:
-            flags.origin_alt = true;
+            compField1.flags.origin_alt = true;
             break;
         case ALT_FRAME_ABOVE_TERRAIN:
             // we mark it as a relative altitude, as it doesn't have
             // home alt added
-            flags.relative_alt = true;
-            flags.terrain_alt = true;
+            compField1.flags.relative_alt = true;
+            compField1.flags.terrain_alt = true;
             break;
     }
 }
@@ -99,13 +99,15 @@ bool Location_Class::change_alt_frame(ALT_FRAME desired_frame)
 // get altitude frame
 Location_Class::ALT_FRAME Location_Class::get_alt_frame() const
 {
-    if (flags.terrain_alt) {
+    if (compField1.flags.terrain_alt) {
+        
         return ALT_FRAME_ABOVE_TERRAIN;
     }
-    if (flags.origin_alt) {
+    if (compField1.flags.origin_alt) {
+
         return ALT_FRAME_ABOVE_ORIGIN;
     }
-    if (flags.relative_alt) {
+    if (compField1.flags.relative_alt) {
         return ALT_FRAME_ABOVE_HOME;
     }
     return ALT_FRAME_ABSOLUTE;

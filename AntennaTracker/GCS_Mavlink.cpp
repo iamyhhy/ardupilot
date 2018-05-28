@@ -639,7 +639,7 @@ void GCS_MAVLINK_Tracker::handleMessage(mavlink_message_t* msg)
             tell_command.lat = 1.0e7f*packet.x;                                     // in as DD converted to * t7
             tell_command.lng = 1.0e7f*packet.y;                                     // in as DD converted to * t7
             tell_command.alt = packet.z*1.0e2f;                                     // in as m converted to cm
-            tell_command.options = 0;                                     // absolute altitude
+            tell_command.compField1.options = 0;                                     // absolute altitude
             break;
         }
 
@@ -650,7 +650,7 @@ void GCS_MAVLINK_Tracker::handleMessage(mavlink_message_t* msg)
                                            (RADIUS_OF_EARTH*cosf(ToRad(home.lat/1.0e7f)))) + home.lat;
             tell_command.lng = 1.0e7f*ToDeg(packet.y/RADIUS_OF_EARTH) + home.lng;
             tell_command.alt = -packet.z*1.0e2f;
-            tell_command.options = MASK_OPTIONS_RELATIVE_ALT;
+            tell_command.compField1.options = MASK_OPTIONS_RELATIVE_ALT;
             break;
         }
 #endif
@@ -662,7 +662,7 @@ void GCS_MAVLINK_Tracker::handleMessage(mavlink_message_t* msg)
                                            (RADIUS_OF_EARTH*cosf(ToRad(home.lat/1.0e7f)))) + home.lat;
             tell_command.lng = 1.0e7f*ToDeg(packet.y/RADIUS_OF_EARTH) + home.lng;
             tell_command.alt = packet.z*1.0e2f;
-            tell_command.options = MASK_OPTIONS_RELATIVE_ALT;
+            tell_command.compField1.options = MASK_OPTIONS_RELATIVE_ALT;
             break;
         }
 #endif
@@ -672,7 +672,7 @@ void GCS_MAVLINK_Tracker::handleMessage(mavlink_message_t* msg)
             tell_command.lat = 1.0e7f * packet.x;                                     // in as DD converted to * t7
             tell_command.lng = 1.0e7f * packet.y;                                     // in as DD converted to * t7
             tell_command.alt = packet.z * 1.0e2f;
-            tell_command.options = MASK_OPTIONS_RELATIVE_ALT;                                     // store altitude relative!! Always!!
+            tell_command.compField1.options = MASK_OPTIONS_RELATIVE_ALT;                                     // store altitude relative!! Always!!
             break;
         }
 

@@ -859,9 +859,9 @@ bool GCS_MAVLINK_Plane::handle_guided_request(AP_Mission::Mission_Command &cmd)
     plane.guided_WP_loc = cmd.content.location;
     
     // add home alt if needed
-    if (plane.guided_WP_loc.flags.relative_alt) {
+    if (plane.guided_WP_loc.compField1.flags.relative_alt) {
         plane.guided_WP_loc.alt += plane.home.alt;
-        plane.guided_WP_loc.flags.relative_alt = 0;
+        plane.guided_WP_loc.compField1.flags.relative_alt = 0;
     }
 
     plane.set_guided_WP();
@@ -875,11 +875,11 @@ bool GCS_MAVLINK_Plane::handle_guided_request(AP_Mission::Mission_Command &cmd)
 void GCS_MAVLINK_Plane::handle_change_alt_request(AP_Mission::Mission_Command &cmd)
 {
     plane.next_WP_loc.alt = cmd.content.location.alt;
-    if (cmd.content.location.flags.relative_alt) {
+    if (cmd.content.location.compField1.flags.relative_alt) {
         plane.next_WP_loc.alt += plane.home.alt;
     }
-    plane.next_WP_loc.flags.relative_alt = false;
-    plane.next_WP_loc.flags.terrain_alt = cmd.content.location.flags.terrain_alt;
+    plane.next_WP_loc.compField1.flags.relative_alt = false;
+    plane.next_WP_loc.compField1.flags.terrain_alt = cmd.content.location.compField1.flags.terrain_alt;
     plane.reset_offset_altitude();
 }
 
@@ -979,10 +979,10 @@ void GCS_MAVLINK_Plane::handleMessage(mavlink_message_t* msg)
 
             // load option flags
             if (packet.frame == MAV_FRAME_GLOBAL_RELATIVE_ALT_INT) {
-                requested_position.flags.relative_alt = 1;
+                requested_position.compField1.flags.relative_alt = 1;
             }
             else if (packet.frame == MAV_FRAME_GLOBAL_TERRAIN_ALT_INT) {
-                requested_position.flags.terrain_alt = 1;
+                requested_position.compField1.flags.terrain_alt = 1;
             }
             else if (packet.frame != MAV_FRAME_GLOBAL_INT) {
                 // not a supported frame
@@ -990,9 +990,9 @@ void GCS_MAVLINK_Plane::handleMessage(mavlink_message_t* msg)
             }
 
             if (is_zero(packet.param4)) {
-                requested_position.flags.loiter_ccw = 0;
+                requested_position.compField1.flags.loiter_ccw = 0;
             } else {
-                requested_position.flags.loiter_ccw = 1;
+                requested_position.compField1.flags.loiter_ccw = 1;
             }
 
             if (location_sanitize(plane.current_loc, requested_position)) {
@@ -1008,9 +1008,9 @@ void GCS_MAVLINK_Plane::handleMessage(mavlink_message_t* msg)
                 plane.guided_WP_loc = requested_position;
 
                 // add home alt if needed
-                if (plane.guided_WP_loc.flags.relative_alt) {
+                if (plane.guided_WP_loc.compField1.flags.relative_alt) {
                     plane.guided_WP_loc.alt += plane.home.alt;
-                    plane.guided_WP_loc.flags.relative_alt = 0;
+                    plane.guided_WP_loc.compField1.flags.relative_alt = 0;
                 }
 
                 plane.set_guided_WP();
@@ -1787,18 +1787,18 @@ void GCS_MAVLINK_Plane::handleMessage(mavlink_message_t* msg)
         if (pos_target.type_mask & alt_mask)
         {
             cmd.content.location.alt = pos_target.alt * 100;
-            cmd.content.location.flags.relative_alt = false;
-            cmd.content.location.flags.terrain_alt = false;
+            cmd.content.location.compField1.flags.relative_alt = false;
+            cmd.content.location.compField1.flags.terrain_alt = false;
             switch (pos_target.coordinate_frame) 
             {
                 case MAV_FRAME_GLOBAL_INT:
                     break; //default to MSL altitude
                 case MAV_FRAME_GLOBAL_RELATIVE_ALT_INT:
-                    cmd.content.location.flags.relative_alt = true;          
+                    cmd.content.location.compField1.flags.relative_alt = true;          
                     break;
                 case MAV_FRAME_GLOBAL_TERRAIN_ALT_INT:
-                    cmd.content.location.flags.relative_alt = true;          
-                    cmd.content.location.flags.terrain_alt = true;
+                    cmd.content.location.compField1.flags.relative_alt = true;          
+                    cmd.content.location.compField1.flags.terrain_alt = true;
                     break;
                 default:
                     gcs().send_text(MAV_SEVERITY_WARNING, "Invalid coord frame in SET_POSTION_TARGET_GLOBAL_INT");

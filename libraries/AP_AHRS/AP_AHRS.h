@@ -87,7 +87,8 @@ public:
         _flags.correct_centrifugal = true;
 
         // initialise _home
-        _home.options    = 0;
+        // Yu: I edited to add compField to the union in Location
+        _home.compField1.options    = 0;
         _home.alt        = 0;
         _home.lng        = 0;
         _home.lat        = 0;
@@ -563,7 +564,7 @@ public:
     // false when no limiting is required
     virtual bool get_hgt_ctrl_limit(float &limit) const { return false; };
 
-protected:
+//protected:
     AHRS_VehicleClass _vehicle_class;
 
     // settable parameters
