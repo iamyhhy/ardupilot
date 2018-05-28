@@ -1,0 +1,67 @@
+==10796== Memcheck, a memory error detector
+==10796== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==10796== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==10796== Command: /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter -S -I0 --home -35.363261,149.165230,584,353 -w --model + --speedup 1 --defaults /home/yhhy/repos/ardupilot/Tools/autotest/default_params/copter.parm
+==10796== Parent PID: 10793
+==10796== 
+==10796== Syscall param write(buf) points to uninitialised byte(s)
+==10796==    at 0x56EB4A0: __write_nocancel (syscall-template.S:84)
+==10796==    by 0x4C6D51: HALSITL::SITL_State::_gps_send_ubx(unsigned char, unsigned char*, unsigned short, unsigned char) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C764A: HALSITL::SITL_State::_update_gps_ubx(HALSITL::SITL_State::gps_data const*, unsigned char) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4CA7C9: HALSITL::SITL_State::_update_gps(double, double, float, double, double, double, bool) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C390A: HALSITL::SITL_State::wait_clock(unsigned long) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C3CEB: HALSITL::Scheduler::delay(unsigned short) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x43E8B8: Compass::init() (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x427D47: Copter::init_compass() (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x42B120: Copter::init_ardupilot() (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x406C3B: Copter::setup() (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C1C77: HAL_SITL::run(int, char* const*, AP_HAL::HAL::Callbacks*) const (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x40339D: main (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==  Address 0xffefff716 is on thread 1's stack
+==10796==  in frame #2, created by HALSITL::SITL_State::_update_gps_ubx(HALSITL::SITL_State::gps_data const*, unsigned char) (???:)
+==10796== 
+==10796== Syscall param write(buf) points to uninitialised byte(s)
+==10796==    at 0x56EB4A0: __write_nocancel (syscall-template.S:84)
+==10796==    by 0x4C6BEC: HALSITL::SITL_State::_gps_send_ubx(unsigned char, unsigned char*, unsigned short, unsigned char) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C764A: HALSITL::SITL_State::_update_gps_ubx(HALSITL::SITL_State::gps_data const*, unsigned char) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4CA7C9: HALSITL::SITL_State::_update_gps(double, double, float, double, double, double, bool) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C390A: HALSITL::SITL_State::wait_clock(unsigned long) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C3CEB: HALSITL::Scheduler::delay(unsigned short) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x43E8B8: Compass::init() (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x427D47: Copter::init_compass() (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x42B120: Copter::init_ardupilot() (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x406C3B: Copter::setup() (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C1C77: HAL_SITL::run(int, char* const*, AP_HAL::HAL::Callbacks*) const (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x40339D: main (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==  Address 0xffefff580 is on thread 1's stack
+==10796==  in frame #1, created by HALSITL::SITL_State::_gps_send_ubx(unsigned char, unsigned char*, unsigned short, unsigned char) (???:)
+==10796== 
+==10796== 
+==10796== Process terminating with default action of signal 1 (SIGHUP)
+==10796==    at 0x59C42F0: __nanosleep_nocancel (syscall-template.S:84)
+==10796==    by 0x59F5D93: usleep (usleep.c:32)
+==10796==    by 0x4CD124: SITL::Aircraft::time_advance() (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4D5D6E: SITL::MultiCopter::update(SITL::Aircraft::sitl_input const&) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C3525: HALSITL::SITL_State::_fdm_input_local() (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C37F5: HALSITL::SITL_State::wait_clock(unsigned long) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C3C1B: HALSITL::Scheduler::delay_microseconds(unsigned short) (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x44CB4B: AP_InertialSensor::wait_for_sample() [clone .part.10] [clone .constprop.16] (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x407A72: Copter::loop() (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x4C1CA5: HAL_SITL::run(int, char* const*, AP_HAL::HAL::Callbacks*) const (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796==    by 0x40339D: main (in /home/yhhy/repos/ardupilot/build/sitl/bin/arducopter)
+==10796== 
+==10796== HEAP SUMMARY:
+==10796==     in use at exit: 356,858 bytes in 78 blocks
+==10796==   total heap usage: 105 allocs, 27 frees, 377,220 bytes allocated
+==10796== 
+==10796== LEAK SUMMARY:
+==10796==    definitely lost: 0 bytes in 0 blocks
+==10796==    indirectly lost: 0 bytes in 0 blocks
+==10796==      possibly lost: 0 bytes in 0 blocks
+==10796==    still reachable: 356,858 bytes in 78 blocks
+==10796==         suppressed: 0 bytes in 0 blocks
+==10796== Rerun with --leak-check=full to see details of leaked memory
+==10796== 
+==10796== For counts of detected and suppressed errors, rerun with: -v
+==10796== Use --track-origins=yes to see where uninitialised values come from
+==10796== ERROR SUMMARY: 264 errors from 2 contexts (suppressed: 0 from 0)

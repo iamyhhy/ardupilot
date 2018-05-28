@@ -1,0 +1,2 @@
+Processing mav.tlog
+Creating AUTO1.tlog
