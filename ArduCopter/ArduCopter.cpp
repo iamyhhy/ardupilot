@@ -273,8 +273,9 @@ void Copter::loop()
     //int fd;
 
     {
-        
+        Location current_home = this -> mission._ahrs.get_home();
         printf ("ArduCopter Running: %d\n", counter);
+        printf ("HOME: (%d, %d, %d)\n", current_home.lat, current_home.lng, current_home.alt);
         counter+=1;
         /*
         //check the size of AP_ParamT
